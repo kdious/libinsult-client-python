@@ -35,7 +35,7 @@ the ``raw`` version of the APIs:
 ::
 
     >>> from libinsult_client import client
-    >>> client.retrieve_insult_text_raw_json()
+    >>> client.retrieve_insult_text_raw('json')
     {u'insult': u'You are as puny as a dirty detestable absurd bucketful of infernal worthless
     leech puke', u'args': {u'lang': u'en', u'template': u'You are as <adjective> as
     <article target=adj1> <adjective min=1 max=3 id=adj1> <amount> of <adjective min=1 max=3>
@@ -49,8 +49,8 @@ the ``build_url`` method (mainly helpful for testing):
 
 ::
 
-    >>> client.build_url('test text', 'json', add='test', fill_text='[filtered]')
-    u'https://www.purgomalum.com/service/json?text=test+text&add=test&fill_text=%5Bfiltered%5D'
+    >>> client.build_url('insult', 'json', who='The Johnsons', pural=True)
+    u'https://insult.mattbas.org/api/insult.json/?who=The+Johnsons&plural=on'
 
 Testing
 -------

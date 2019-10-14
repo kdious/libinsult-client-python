@@ -75,11 +75,12 @@ def build_url(request_type, response_format, language_code, who, plural):
                     response_format, '?', query_string])
 
 
-def retrieve_insult_text_raw_json(language_code='en', who=None, plural=False):
+def retrieve_insult_text_raw(response_format, language_code='en', who=None, plural=False):
     """
     Call the LibInsult REST API using the json request_type and return the raw payload response
     See https://insult.mattbas.org/api/ for details
 
+    :param response_format: (string) The format for the response.  Must be one of: html, json, txt
     :param language_code: (string) A code representing the language for the insult
     :param who: (string) The name of the person(s) who are being insulted
     :param plural: (boolean) Indicates where the 'who' should be considered as plural or not for
@@ -91,12 +92,17 @@ def retrieve_insult_text_raw_json(language_code='en', who=None, plural=False):
 
     :raises: ValueError
     """
-    full_url = build_url('insult', 'json', language_code, who, plural)
-    response = requests.get(url=full_url)
-    response_content = response.json()
+    if response_format not in VALID_RESPONSE_FORMATS:
+        raise ValueError("Input param 'response_format' is invalid - must be one of {}"
+                         .format(VALID_RESPONSE_FORMATS))
 
-    if response_content['error']:
-        raise ClientError(response_content['error_message'])
+    full_url = build_url('insult', response_format, language_code, who, plural)
+    response = requests.get(url=full_url)
+
+    if response_format in ('html', 'txt'):
+        response_content = response.content.decode()
+    else:
+        response_content = response.json()
 
     return response_content
 
@@ -118,6 +124,9 @@ def retrieve_insult(language_code='en', who=None, plural=False):
     :raises: ClientError
     :raises: ValueError
     """
-    response_content = retrieve_insult_text_raw_json(language_code, who, plural)
+    response_content = retrieve_insult_text_raw('json', language_code, who, plural)
+
+    if response_content['error']:
+        raise ClientError(response_content['error_message'])
 
     return response_content['insult']
