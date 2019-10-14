@@ -4,12 +4,13 @@ Description:    Unit tests for all functions within libinsult.client.py
                 Theses unit tests do call the actual LibInsult production
                 API in order to test against potential API changes.
 """
+from bs4 import BeautifulSoup
 from libinsult.client import (
     build_url,
     ClientError,
     LIB_INSULT_BASE_URL,
     retrieve_insult,
-    retrieve_insult_text_raw_json,
+    retrieve_insult_text_raw,
 )
 
 
@@ -22,14 +23,35 @@ def test_retrieve_insult():
     assert isinstance(result, str)
 
 
-# Test retrieve_filtered_text_raw functions
+# Test retrieve_filtered_text_raw
+
+def test_retrieve_insult_raw_html(mocker):
+    who = 'The Kardashians'
+    plural = True
+    url = 'https://insult.mattbas.org/api/insult.html/?who=The+Kardashians&plural=on'
+    mocker.patch('libinsult.client.build_url', return_value=url)
+    result = retrieve_insult_text_raw('html', who=who, plural=plural)
+
+    # Parse the HTML using BeautifulSoup
+    parsed_html = BeautifulSoup(result, "html.parser")
+
+    # Since the insults are randomly generated strings the best
+    # we can do is make sure that result is valid HTML.
+    assert bool(parsed_html.find()) is True
+
+    # The insult is contained in the h1 tag (the only one)
+    h1_tags = parsed_html.find_all('h1')
+    assert len(h1_tags) == 1
+    assert h1_tags[0] is not None
+
 
 def test_retrieve_insult_raw_json(mocker):
     who = 'The Kardashians'
     plural = True
     url = 'https://insult.mattbas.org/api/insult.json/?who=The+Kardashians&plural=on'
     mocker.patch('libinsult.client.build_url', return_value=url)
-    result = retrieve_insult_text_raw_json(who=who, plural=plural)
+    result = retrieve_insult_text_raw('json', who=who, plural=plural)
+
     # Since the insults are randomly generated strings the best
     # we can do is make sure that result is actually a dict.
     assert isinstance(result, dict)
@@ -52,5 +74,16 @@ def test_retrieve_insult_raw_json(mocker):
     # Make sure no error message was returned in the payload
     assert 'error_message' not in result
 
+
+def test_retrieve_insult_raw_txt(mocker):
+    who = 'The Kardashians'
+    plural = True
+    url = 'https://insult.mattbas.org/api/insult.txt/?who=The+Kardashians&plural=on'
+    mocker.patch('libinsult.client.build_url', return_value=url)
+    result = retrieve_insult_text_raw('txt', who=who, plural=plural)
+
+    # Since the insults are randomly generated strings the best
+    # we can do is make sure that result is a valid string.
+    assert isinstance(result, str)
 
 # Test build_url function
