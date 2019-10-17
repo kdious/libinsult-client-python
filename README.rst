@@ -55,9 +55,9 @@ the ``build_url`` method (mainly helpful for testing):
 Testing
 -------
 
-Tests have been for python 2.7 and python 3 using ``pytest``. The unit
-tests do call the actual PurgoMalum production API in order to test
-against potential API changes.
+Tests have been for python 2.7 and python 3 using ``pytest``. In order
+to test against potential API changes, unit tests call PurgoMalum's 
+production API.
 
 Before running tests make sure to install
 `pytest <https://pypi.org/project/pytest/>`__,
