@@ -56,7 +56,7 @@ Testing
 -------
 
 Tests have been for python 2.7 and python 3 using ``pytest``. The unit
-tests do call the actual PurgoMalum production API in order to test
+tests do call the actual LibInsult's `production API <https://insult.mattbas.org/api/>`__ in order to test
 against potential API changes.
 
 Before running tests make sure to install
