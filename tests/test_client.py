@@ -63,7 +63,7 @@ def test_retrieve_insult_raw_json(mocker):
     assert result['args']['lang'] == 'en'
 
     # Make sure the default template was returned
-    assert result['args']['template'] == ('The Kardashians are as <adjective> as '
+    assert result['args']['template'] == ('The Johnsons are as <adjective> as '
                                           '<article target=adj1> <adjective min=1 max=3 id=adj1> '
                                           '<amount> of <adjective min=1 max=3> <animal> '
                                           '<animal_part>')
