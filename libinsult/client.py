@@ -4,8 +4,6 @@ Description:    A client library for the the public LibInsult REST API
                 See: https://insult.mattbas.org/api/
 """
 import requests
-from future.standard_library import install_aliases
-install_aliases()
 from urllib.parse import urlencode
 
 LIB_INSULT_BASE_URL = 'https://insult.mattbas.org/api/'
