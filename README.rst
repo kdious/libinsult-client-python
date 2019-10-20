@@ -55,7 +55,7 @@ the ``build_url`` method (mainly helpful for testing):
 Testing
 -------
 
-Tests have been for python 2.7 and python 3 using ``pytest``. The unit
+Tests have been written for python 3 and can be run using ``pytest``. The unit
 tests do call the actual LibInsult's `production API <https://insult.mattbas.org/api/>`__ in order to test
 against potential API changes.
 
