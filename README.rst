@@ -1,3 +1,8 @@
+.. image:: https://img.shields.io/badge/License-MIT-yellow.svg
+    :target: https://opensource.org/licenses/MIT
+.. image:: https://travis-ci.com/kdious/libinsult-client-python.svg?branch=master
+    :target: https://travis-ci.com/kdious/libinsult-client-python
+
 LibInsult Client
 =================
 
