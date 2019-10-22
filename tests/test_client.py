@@ -5,7 +5,6 @@ Description:    Unit tests for all functions within libinsult.client.py
                 API in order to test against potential API changes.
 """
 from bs4 import BeautifulSoup
-from mock import Mock
 import pytest
 from libinsult.client import (
     build_url,
