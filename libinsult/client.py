@@ -6,7 +6,7 @@ Description:    A client library for the the public LibInsult REST API
 import requests
 from urllib.parse import urlencode
 
-LIB_INSULT_BASE_URL = 'https://insult.mattbas.org/api/'
+LIB_INSULT_BASE_URL = 'https://insult.mattbas.org/api'
 VALID_LANGUAGE_CODES = ['en']
 VALID_REQUEST_TYPES = ['adjective', 'insult']
 VALID_RESPONSE_FORMATS = ['html', 'json', 'txt']

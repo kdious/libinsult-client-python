@@ -5,6 +5,8 @@ Description:    Unit tests for all functions within libinsult.client.py
                 API in order to test against potential API changes.
 """
 from bs4 import BeautifulSoup
+from mock import Mock
+import pytest
 from libinsult.client import (
     build_url,
     ClientError,
@@ -21,6 +23,12 @@ def test_retrieve_insult():
     # Since the insults are randomly generated strings the best
     # we can do is make sure that result is actually a string.
     assert isinstance(result, str)
+
+def test_retrieve_insult_invalid(mocker):
+    response = {'error': True, 'error_message': 'Invalid Call'}
+    mocker.patch('libinsult.client.retrieve_insult_text_raw', return_value=response)
+    with pytest.raises(ClientError):
+        retrieve_insult()
 
 
 # Test retrieve_filtered_text_raw
@@ -87,3 +95,52 @@ def test_retrieve_insult_raw_txt(mocker):
     assert isinstance(result, str)
 
 # Test build_url function
+
+def test_build_url():
+    full_url = build_url('insult', 'txt', language_code='en', who='Kristen', plural=True)
+    expected_url = 'https://insult.mattbas.org/api/en/insult.txt?who=Kristen&plural=on'
+    assert full_url == expected_url, "Should be '{}".format(expected_url)
+     
+
+def test_build_url_invalid_request_type():
+    with pytest.raises(ValueError):
+        build_url('invalid', 'txt', language_code='en', who='Campbell', plural=False)
+
+
+def test_build_url_no_request_type():
+    with pytest.raises(ValueError):
+        build_url('', 'txt', language_code='en', who='Kristen', plural=False)
+
+
+def test_build_url_invalid_response_format():
+    with pytest.raises(ValueError):
+        build_url('insult', 'invalid', language_code='en', who='Wakanda', plural=False)
+
+
+def test_build_url_no_response_format():
+    with pytest.raises(ValueError):
+        build_url('insult', '', language_code='en', who='Beyonce', plural=False)
+
+
+def test_build_url_invalid_language_code():
+    with pytest.raises(ValueError):
+        build_url('insult', 'json', language_code=3, who='The Avengers', plural=True)
+
+
+def test_build_url_invalid_who():
+    with pytest.raises(ValueError):
+        build_url('insult', 'json', language_code='en', who=7, plural=False)
+
+
+def test_build_url_invalid_plural():
+    with pytest.raises(ValueError):
+        build_url('insult', 'json', language_code='en', who='Mace Windu', plural='invalid')
+
+
+# Test retrieve_insult_text_raw function
+
+def test_retrieve_insult_text_raw_invalid_response_format():
+    with pytest.raises(ValueError):
+        retrieve_insult_text_raw('invalid')
+
+
