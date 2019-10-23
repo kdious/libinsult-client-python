@@ -90,7 +90,7 @@ You should see:
 
     Name                   Stmts   Miss  Cover   Missing
     ----------------------------------------------------
-    libinsult/__init_.py       0      0   100%
+    libinsult/__init_.py       0     0    100%
     libinsult/client.py       41     0    100%   
     ----------------------------------------------------
     TOTAL                     41     0    100%
