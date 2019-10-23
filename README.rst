@@ -2,6 +2,12 @@
     :target: https://opensource.org/licenses/MIT
 .. image:: https://travis-ci.com/kdious/libinsult-client-python.svg?branch=master
     :target: https://travis-ci.com/kdious/libinsult-client-python
+.. image:: https://kdious.testspace.com/spaces/129647/badge?token=17d21b0af6d428535945fe37ff767015f6fe3b4c
+    :alt: Space Metric
+    :target: https://kdious.testspace.com/spaces/129647?utm_campaign=badge&utm_medium=referral&utm_source=test
+.. image:: https://kdious.testspace.com/spaces/129647/metrics/94934/badge?token=c56490bafa2500c0b4e90eb8f74247d01e662792
+    :alt: Space Metric
+    :target: https://kdious.testspace.com/spaces/129647/current/Code%20Coverage?utm_campaign=badge&utm_medium=referral&utm_source=coverage
 
 LibInsult Client
 =================
@@ -84,10 +90,10 @@ You should see:
 
     Name                   Stmts   Miss  Cover   Missing
     ----------------------------------------------------
-    libinsult/__init_.py       0      0   100%
-    libinsult/client.py       39     11    72%   43, 47, 51, 60-69, 99
+    libinsult/__init_.py       0     0    100%
+    libinsult/client.py       41     0    100%   
     ----------------------------------------------------
-    TOTAL                     39     11    72%
+    TOTAL                     41     0    100%
 
 Miscellaneous
 -------------
