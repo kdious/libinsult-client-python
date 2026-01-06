@@ -18,7 +18,7 @@ setup(
     url='https://github.com/kdious/libinsult-client-python',
     download_url='https://github.com/kdious/libinsult-client-python/tarball/{ver}'.format(
         ver=version_num),
-    install_requires=['future==0.17.1', 'requests'],
+    install_requires=['future==1.0.0', 'requests'],
     packages=find_packages(),
     keywords=['libinsult', 'insult', 'generator', 'api', 'client'],
     classifiers=[
